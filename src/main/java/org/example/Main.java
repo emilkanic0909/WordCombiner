@@ -1,7 +1,10 @@
 package org.example;
 
+import org.apache.poi.xwpf.usermodel.XWPFAbstractFootnoteEndnote;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        FrontEnd frontEnd=new FrontEnd();
+        frontEnd.setVisible(true);
     }
 }
