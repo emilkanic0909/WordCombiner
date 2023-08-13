@@ -16,9 +16,7 @@ public class BackEnd {
        this.output=output;
     }
     public void start(){
-
-    }
-    public void konfigInitialize(File konfig){
-
+        KonfigInitializer konfigInitializer=new KonfigInitializer(konfig);
+        konfigInitializer.evaluateKfgToRightForm();
     }
 }
