@@ -11,7 +11,6 @@ public class KonfigInitializer {
     }
     public void evaluateKfgToRightForm(){
         List<Command> commandList=new ArrayList<>();
-         commandList.add(new OneWordCommand());
-         commandList.add(new DoubleWordCommand());
+
     }
 }
