@@ -1,6 +1,8 @@
 package org.example;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 public class BackEnd {
     private File kassa;
@@ -15,8 +17,9 @@ public class BackEnd {
        this.konfig=konfig;
        this.output=output;
     }
-    public void start(){
+    public void start() throws IOException {
         KonfigInitializer konfigInitializer=new KonfigInitializer(konfig);
-        konfigInitializer.evaluateKfgToRightForm();
+       List<Command> listOfCommandsKass= konfigInitializer.evaluateKfgToRightFormKass();
+        List<Command> listOfCommandApel=konfigInitializer.evaluateKfgToRightFormApell();
     }
 }

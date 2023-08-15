@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 public class FrontEnd extends JFrame {
     private File kassa=null;
@@ -119,7 +120,11 @@ public class FrontEnd extends JFrame {
                     if(responce==JFileChooser.APPROVE_OPTION){
                         File output=new File(fileChooser.getSelectedFile().getAbsoluteFile().toURI()+"docx");
                         BackEnd backEnd=new BackEnd(kassa,apell,template,konf,output);
-                        backEnd.start();
+                        try {
+                            backEnd.start();
+                        } catch (IOException ex) {
+                            JOptionPane.showMessageDialog(null,"Один из файлов выбран неверно","output",JOptionPane.PLAIN_MESSAGE);
+                        }
                     }
                 }
             }

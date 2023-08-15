@@ -9,4 +9,16 @@ public class Wort {
         this.included=included;
         this.caseSensitive=caseSensitive;
     }
+
+    public boolean isCaseSensitive() {
+        return caseSensitive;
+    }
+
+    public boolean isIncluded() {
+        return included;
+    }
+
+    public String getWord() {
+        return word;
+    }
 }
