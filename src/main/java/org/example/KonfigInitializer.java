@@ -28,12 +28,26 @@ public class KonfigInitializer {
     public List<Command> evaluateKfgToRightFormKass() throws IOException {
         int endElem=0;
         for(int i=0;i<stringsToParse.size();i++){
-            endElem++;
             if(stringsToParse.get(i).equals("apellopred:")){
                 break;
-            }
+            } else endElem++;
         }
-        for(int i=0;i<endElem;i++){
+    evaluateCommandList(0,endElem,true);
+   return commandListKass;
+    }
+    public List<Command> evaluateKfgToRightFormApell() throws IOException {
+        int endElem=0;
+        for(int i=0;i<stringsToParse.size();i++){
+
+            if(stringsToParse.get(i).equals("apellopred:")){
+                break;
+            } else endElem++;
+        }
+        evaluateCommandList(endElem+1,stringsToParse.size(),false);
+        return commandListApell;
+    }
+    public void evaluateCommandList(int start,int end,boolean kass){
+        for(int i=start;i<end;i++){
             additionalParameter additionalParameter;
             String curString=stringsToParse.get(i);
             String goal=curString.substring(0,curString.indexOf(" "));
@@ -69,12 +83,12 @@ public class KonfigInitializer {
                 //standard in andList
                 List<Wort> orList=new ArrayList<>();
                 List<Wort> andList=new ArrayList<>();
-                boolean or=false;
+                boolean or=true;
                 String secondParameter=curString.substring(1,lastindex);
                 String arguments[];
                 if(secondParameter.contains("*ИЛИ*")){
                     or=true;
-                arguments=secondParameter.split("[*]ИЛИ[*]");
+                    arguments=secondParameter.split("[*]ИЛИ[*]");
                 }
                 else if(secondParameter.contains("*И*")){
                     or=false;
@@ -94,15 +108,111 @@ public class KonfigInitializer {
                     if(or)orList.add(a);
                     else andList.add(a);
                 }
-                if(sentence)commandListKass.add(new OneWordSentence(goal,andList,orList,additionalParameter));
-                else commandListKass.add(new OneWordParagraph(goal,andList,orList,additionalParameter));
+                if(kass) {
+                    if (sentence) commandListKass.add(new OneWordSentence(goal, andList, orList, additionalParameter));
+                    else commandListKass.add(new OneWordParagraph(goal, andList, orList, additionalParameter));
+                } else {
+                    if (sentence) commandListApell.add(new OneWordSentence(goal, andList, orList, additionalParameter));
+                    else commandListApell.add(new OneWordParagraph(goal, andList, orList, additionalParameter));
+                }
+            }
+            else {
+                //it is DoubleWordCopy
+                String firstWord=curString.substring(1,curString.indexOf('@',1));
+                curString=curString.substring(curString.indexOf('@',1)+2);
+                String secondWord=curString.substring(1,curString.indexOf('@',1));
+                curString=curString.substring(curString.indexOf('@',1)+1);
+                if(curString.length()>0&& curString.charAt(0)==' ')curString=curString.substring(1);
+                switch (curString){
+                    case "":
+                        additionalParameter= org.example.additionalParameter.First;
+                    break;
+                    case "ПЕРВЫЙ":
+                        additionalParameter= org.example.additionalParameter.First;
+                        break;
+                    case "ПОСЛЕДНИЙ":
+                        additionalParameter= org.example.additionalParameter.Last;
+                        break;
+                    case "ВСЕ":
+                        additionalParameter= org.example.additionalParameter.All;
+                        break;
+                    case " ПЕРВЫЙ":
+                        additionalParameter= org.example.additionalParameter.First;
+                        break;
+                    case " ПОСЛЕДНИЙ":
+                        additionalParameter= org.example.additionalParameter.Last;
+                        break;
+                    case " ВСЕ":
+                        additionalParameter= org.example.additionalParameter.All;
+                        break;
+                    default:
+                        additionalParameter= org.example.additionalParameter.Order;
+                        additionalParameter.setNumber(Integer.parseInt(curString));
+                        break;
+                }
+
+                List<Wort> orListFirst=new ArrayList<>();
+                List<Wort> orListSecond=new ArrayList<>();
+                String[]firstArguments;
+                String[]secondArguments;
+                if(firstWord.contains("*ИЛИ*")){
+
+                    firstArguments=firstWord.split("[*]ИЛИ[*]");
+                } else {
+                    firstArguments=new String[1];
+                    firstArguments[0]=firstWord;
+                }
+                //Second
+                if(secondWord.contains("*ИЛИ*")){
+                    secondArguments=secondWord.split("[*]ИЛИ[*]");
+                } else {
+                    secondArguments=new String[1];
+                    secondArguments[0]=secondWord;
+                }
+                //Cycle for First
+                for(int j=0;j<firstArguments.length;j++){
+                    boolean included=true;
+                    boolean caseSensitive=true;
+                    if(firstArguments[j].contains("(")){
+                        caseSensitive=false;
+                        firstArguments[j]=firstArguments[j].replace("(","");
+                        firstArguments[j]=firstArguments[j].replace(")","");
+                    }
+                    if(firstArguments[j].contains("/")){
+                        included=false;
+                        firstArguments[j]=firstArguments[j].replaceAll("/","");
+                    }
+                    Wort a=new Wort(firstArguments[j],included,caseSensitive);
+                   orListFirst.add(a);
+
+                }
+
+                //Cycle for Second
+                for(int j=0;j<secondArguments.length;j++){
+                    boolean included=true;
+                    boolean caseSensitive=true;
+                    if(secondArguments[j].contains("(")){
+                        caseSensitive=false;
+                        secondArguments[j]= secondArguments[j].replace("(","");
+                        secondArguments[j]= secondArguments[j].replace(")","");
+                    }
+                    if( secondArguments[j].contains("/")){
+                        included=false;
+                        secondArguments[j]= secondArguments[j].replaceAll("/","");
+                    }
+                    Wort a=new Wort( secondArguments[j],included,caseSensitive);
+                    orListSecond.add(a);
+
+                }
+
+                DoubleWordCopy command=new DoubleWordCopy(goal,orListFirst,orListSecond,additionalParameter);
+                if(kass){
+                    commandListKass.add(command);
+                } else {
+                    commandListApell.add(command);
+                }
             }
         }
-   return commandListKass;
-    }
-    public List<Command> evaluateKfgToRightFormApell() throws IOException {
-
-        return commandListKass;
     }
     public List<Command> getCommandListKass() {
 

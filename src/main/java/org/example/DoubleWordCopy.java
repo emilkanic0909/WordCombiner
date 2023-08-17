@@ -4,10 +4,12 @@ import java.util.List;
 
 public class DoubleWordCopy extends DoubleWordCommand{
     //TODO
-    public DoubleWordCopy(String goal, List<Wort> orList){
+    public DoubleWordCopy(String goal, List<Wort> firstOrList, List<Wort> secondOrList,additionalParameter parameter){
     super();
-    setOrList(orList);
+    setFirstOrList(firstOrList);
+    setSecondOrList(secondOrList);
     setGoal(goal);
+    setParameter(parameter);
     }
 
     @Override

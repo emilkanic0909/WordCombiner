@@ -5,16 +5,22 @@ import java.util.List;
 
 public abstract class DoubleWordCommand implements Command{
     private String goal;
-    private List<Wort> orList;
+    private List<Wort> orListFirstWord;
+    private List<Wort> orListSecondWord;
     private additionalParameter parameter;
     public DoubleWordCommand(){
         goal="";
-        orList=new ArrayList<>();
+        orListFirstWord=new ArrayList<>();
+        orListSecondWord=new ArrayList<>();
+        parameter=additionalParameter.First;
     }
 
     public abstract void evalCommand(String [] Paragraphs, String [] resultParagraphs) ;
-    public void setOrList(List<Wort> orList) {
-        this.orList = orList;
+    public void setFirstOrList(List<Wort> orListFirstWord) {
+        this.orListFirstWord = orListFirstWord;
+    }
+    public void setSecondOrList(List<Wort> orListSecondWord) {
+        this.orListSecondWord = orListSecondWord;
     }
 
     public void setGoal(String goal) {
@@ -29,8 +35,11 @@ public abstract class DoubleWordCommand implements Command{
         return parameter;
     }
 
-    public List<Wort> getOrList() {
-        return orList;
+    public List<Wort> getFirstOrList() {
+        return orListFirstWord;
+    }
+    public List<Wort> getSecondOrList() {
+        return orListSecondWord;
     }
 
     public String getGoal() {
