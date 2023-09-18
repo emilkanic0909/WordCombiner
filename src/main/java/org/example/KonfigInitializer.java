@@ -28,6 +28,7 @@ public class KonfigInitializer {
     public List<Command> evaluateKfgToRightFormKass() throws IOException {
         int endElem=0;
         for(int i=0;i<stringsToParse.size();i++){
+            //Finden a Teiler
             if(stringsToParse.get(i).equals("apellopred:")){
                 break;
             } else endElem++;
@@ -38,7 +39,7 @@ public class KonfigInitializer {
     public List<Command> evaluateKfgToRightFormApell() throws IOException {
         int endElem=0;
         for(int i=0;i<stringsToParse.size();i++){
-
+//Teiler
             if(stringsToParse.get(i).equals("apellopred:")){
                 break;
             } else endElem++;
@@ -64,12 +65,15 @@ public class KonfigInitializer {
                     String thirdParameter=curString.substring(lastindex+2,curString.length());
                     switch (thirdParameter){
                         case "ПЕРВЫЙ":
+                            //Erste
                             additionalParameter= org.example.additionalParameter.First;
                             break;
                         case "ПОСЛЕДНИЙ":
+                            //Letzte
                             additionalParameter= org.example.additionalParameter.Last;
                             break;
                         case "ВСЕ":
+                            //All
                             additionalParameter= org.example.additionalParameter.All;
                             break;
                         default:
@@ -86,11 +90,12 @@ public class KonfigInitializer {
                 boolean or=true;
                 String secondParameter=curString.substring(1,lastindex);
                 String arguments[];
-                if(secondParameter.contains("*ИЛИ*")){
+
+                if(secondParameter.contains("*ИЛИ*")){ //ODER
                     or=true;
                     arguments=secondParameter.split("[*]ИЛИ[*]");
                 }
-                else if(secondParameter.contains("*И*")){
+                else if(secondParameter.contains("*И*")){ //UND
                     or=false;
                     arguments=secondParameter.split("[*]И[*]");
                 } else {
@@ -99,7 +104,7 @@ public class KonfigInitializer {
                 }
                 for(int j=0;j<arguments.length;j++){
                     Wort a;
-                    if(arguments[j].contains("(")) {
+                    if(arguments[j].contains("(")) { //pruefen ob case in- sensitive
                         arguments[j]=arguments[j].substring(1,arguments[j].length()-1);
                         a=new Wort(arguments[j],true,false);
                     } else {
@@ -128,21 +133,27 @@ public class KonfigInitializer {
                         additionalParameter= org.example.additionalParameter.First;
                     break;
                     case "ПЕРВЫЙ":
+                        //Erste
                         additionalParameter= org.example.additionalParameter.First;
                         break;
                     case "ПОСЛЕДНИЙ":
+                        //Letzte
                         additionalParameter= org.example.additionalParameter.Last;
                         break;
                     case "ВСЕ":
+                        //ALL
                         additionalParameter= org.example.additionalParameter.All;
                         break;
                     case " ПЕРВЫЙ":
+                        //Erste
                         additionalParameter= org.example.additionalParameter.First;
                         break;
                     case " ПОСЛЕДНИЙ":
+                        //Letzte
                         additionalParameter= org.example.additionalParameter.Last;
                         break;
                     case " ВСЕ":
+                        //All
                         additionalParameter= org.example.additionalParameter.All;
                         break;
                     default:
@@ -155,7 +166,7 @@ public class KonfigInitializer {
                 List<Wort> orListSecond=new ArrayList<>();
                 String[]firstArguments;
                 String[]secondArguments;
-                if(firstWord.contains("*ИЛИ*")){
+                if(firstWord.contains("*ИЛИ*")){//ODER
 
                     firstArguments=firstWord.split("[*]ИЛИ[*]");
                 } else {
@@ -163,7 +174,7 @@ public class KonfigInitializer {
                     firstArguments[0]=firstWord;
                 }
                 //Second
-                if(secondWord.contains("*ИЛИ*")){
+                if(secondWord.contains("*ИЛИ*")){//ODER
                     secondArguments=secondWord.split("[*]ИЛИ[*]");
                 } else {
                     secondArguments=new String[1];
@@ -173,12 +184,12 @@ public class KonfigInitializer {
                 for(int j=0;j<firstArguments.length;j++){
                     boolean included=true;
                     boolean caseSensitive=true;
-                    if(firstArguments[j].contains("(")){
+                    if(firstArguments[j].contains("(")){//case in- sensitive
                         caseSensitive=false;
                         firstArguments[j]=firstArguments[j].replace("(","");
                         firstArguments[j]=firstArguments[j].replace(")","");
                     }
-                    if(firstArguments[j].contains("/")){
+                    if(firstArguments[j].contains("/")){//included oder nicht
                         included=false;
                         firstArguments[j]=firstArguments[j].replaceAll("/","");
                     }
@@ -191,12 +202,12 @@ public class KonfigInitializer {
                 for(int j=0;j<secondArguments.length;j++){
                     boolean included=true;
                     boolean caseSensitive=true;
-                    if(secondArguments[j].contains("(")){
+                    if(secondArguments[j].contains("(")){//case in- sensitive
                         caseSensitive=false;
                         secondArguments[j]= secondArguments[j].replace("(","");
                         secondArguments[j]= secondArguments[j].replace(")","");
                     }
-                    if( secondArguments[j].contains("/")){
+                    if( secondArguments[j].contains("/")){// included oder nicht
                         included=false;
                         secondArguments[j]= secondArguments[j].replaceAll("/","");
                     }

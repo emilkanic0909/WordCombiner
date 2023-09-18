@@ -31,16 +31,16 @@ public class FrontEnd extends JFrame {
     Container container;
     public FrontEnd(){
         homeDirectory= FileSystemView.getFileSystemView().getHomeDirectory();
-        kassaButton=new JButton("Кассационное");
-        apellButton=new JButton("Апеляционное");
-        konfigButton=new JButton("Конфиг");
-        templateButton=new JButton("Шаблон");
-        startButton=new JButton("Старт");
-        kassaLabel=new JLabel("Касса Путь: ");
-        apellLabel=new JLabel("Апел Путь: ");
-        konfigLabel=new JLabel("Конфиг Путь: ");
-        templateLabel=new JLabel("Шаблон Путь: ");
-        paint=new JCheckBox("Красить",false);
+        kassaButton=new JButton("Кассационное");//Beschwerde
+        apellButton=new JButton("Апеляционное");//Berufungsdefinition
+        konfigButton=new JButton("Конфиг");//Konfiguration
+        templateButton=new JButton("Шаблон");//Vorlage
+        startButton=new JButton("Старт");//Start
+        kassaLabel=new JLabel("Касса Путь: ");//Beschwerde Path
+        apellLabel=new JLabel("Апел Путь: ");//Berufungsdefinition Path
+        konfigLabel=new JLabel("Конфиг Путь: ");//Konfiguration Path
+        templateLabel=new JLabel("Шаблон Путь: ");// Vorlage Path
+        paint=new JCheckBox("Красить",false);// Malen
         fileChooser=new JFileChooser();
         fileChooser.setCurrentDirectory(homeDirectory);
         filterDocX=new FileNameExtensionFilter("Word","docx","doc");
@@ -72,7 +72,7 @@ public class FrontEnd extends JFrame {
                 int responce=fileChooser.showOpenDialog(null);
                 if(responce==JFileChooser.APPROVE_OPTION){
                     kassa=new File(fileChooser.getSelectedFile().getAbsoluteFile().toURI());
-                    kassaLabel.setText("Касса Путь: "+kassa.getAbsolutePath());
+                    kassaLabel.setText("Касса Путь: "+kassa.getAbsolutePath());//Beschwerde Path
                 }
             }
         });
@@ -83,7 +83,7 @@ public class FrontEnd extends JFrame {
                 int responce=fileChooser.showOpenDialog(null);
                 if(responce==JFileChooser.APPROVE_OPTION){
                     apell=new File(fileChooser.getSelectedFile().getAbsoluteFile().toURI());
-                    apellLabel.setText("Апел Путь: "+apell.getAbsolutePath());
+                    apellLabel.setText("Апел Путь: "+apell.getAbsolutePath()); //Berufungsdefinition Path
                 }
             }
         });
@@ -94,7 +94,7 @@ public class FrontEnd extends JFrame {
                 int responce=fileChooser.showOpenDialog(null);
                 if(responce==JFileChooser.APPROVE_OPTION){
                     template=new File(fileChooser.getSelectedFile().getAbsoluteFile().toURI());
-                    templateLabel.setText("Шаблон Путь: "+template.getAbsolutePath());
+                    templateLabel.setText("Шаблон Путь: "+template.getAbsolutePath());//Vorlage Path
                 }
             }
         });
@@ -105,7 +105,7 @@ public class FrontEnd extends JFrame {
                 int responce=fileChooser.showOpenDialog(null);
                 if(responce==JFileChooser.APPROVE_OPTION){
                     konf=new File(fileChooser.getSelectedFile().getAbsoluteFile().toURI());
-                    konfigLabel.setText("Конфиг Путь: "+konf.getAbsolutePath());
+                    konfigLabel.setText("Конфиг Путь: "+konf.getAbsolutePath());//Konfiguration Path
                 }
             }
         });
@@ -113,7 +113,7 @@ public class FrontEnd extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(kassa==null||apell==null||konf==null||template==null){
-                    JOptionPane.showMessageDialog(null,"Один из файлов не выбран","output",JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Один из файлов не выбран","output",JOptionPane.PLAIN_MESSAGE);//Eine von Dateien nicht ausgewählt
                 } else {
                     fileChooser.setFileFilter(filterDocX);
                     int responce= fileChooser.showSaveDialog(null);
@@ -124,7 +124,7 @@ public class FrontEnd extends JFrame {
                             backEnd=new BackEnd(kassa,apell,template,konf,output);
                             backEnd.start();
                         } catch (IOException ex) {
-                            JOptionPane.showMessageDialog(null,"Один из файлов выбран неверно","output",JOptionPane.PLAIN_MESSAGE);
+                            JOptionPane.showMessageDialog(null,"Один из файлов выбран неверно","output",JOptionPane.PLAIN_MESSAGE);//Eine von Dateien ist inkorrekt
                         }
                     }
                 }

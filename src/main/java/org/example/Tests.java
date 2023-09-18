@@ -329,11 +329,11 @@ public class Tests {
     @Test
     public void TestKonfigInitializerDoubleWordKassApellHard2() throws IOException {
         System.out.println("Test DoubleWord simple with CaseSencivity or included komlexerer with Apell ");
-        String command = "ААА @/(БББ)/@ @(/ССС/)@ ПОСЛЕДНИЙ";
+        String command = "ААА @/(БББ)/@ @(/ССС/)@ ПОСЛЕДНИЙ";//Letzte
         commands.add(command);
         command = "ДДД @/е/*ИЛИ*(про)*ИЛИ*(/ЛОХ/)*ИЛИ*/(ВАУ)/@ @/(УУУ/)*ИЛИ*ВВВ@ ВСЕ";
         commands.add(command);
-        command="apellopred:";
+        command="apellopred:";//Teiler
         commands.add(command);
         command="ППП @/ИИИ/*ИЛИ*(ЫЫЫ)*ИЛИ*(/ЦЦЦ/)@ @/(АУЕ)/*ИЛИ*(/ЖЖЖ/)*ИЛИ*ЭЭЭ@ 123";
         KonfigInitializer konfigInitializer = new KonfigInitializer(commands);

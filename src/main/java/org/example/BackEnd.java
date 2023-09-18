@@ -22,6 +22,7 @@ public class BackEnd {
     private String [] kassParagraphs;
     private String [] apellParagraphs;
     public BackEnd(File kassa, File apell, File template, File konfig, File output) throws IOException {
+        // Nimmnt Files und evaluiert Befehle
        this.kassa=kassa;
        this.apell=apell;
        this.template=template;
@@ -49,6 +50,7 @@ public class BackEnd {
         KonfigInitializer konfigInitializer=new KonfigInitializer(konfig);
        List<Command> listOfCommandsKass= konfigInitializer.evaluateKfgToRightFormKass();
         List<Command> listOfCommandApel=konfigInitializer.evaluateKfgToRightFormApell();
+        konfigInitializer.closeReader();
        for(int i=0;i<listOfCommandsKass.size();i++){
            listOfCommandsKass.get(i).evalCommand(kassParagraphs,templateDoc);
        }

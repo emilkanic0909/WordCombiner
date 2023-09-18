@@ -5,7 +5,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import java.util.List;
 
 public class OneWordSentence extends OneWordCommand {
-   //TODO
+
     public OneWordSentence(String goal, List<Wort> andlist, List<Wort> orList, additionalParameter parameter){
       super();
       setGoal(goal);
@@ -16,6 +16,6 @@ public class OneWordSentence extends OneWordCommand {
 
     @Override
     public void evalCommand(String [] Paragraphs, XWPFDocument template) {
-
+//TODO
     }
 }
