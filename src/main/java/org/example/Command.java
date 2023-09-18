@@ -1,5 +1,7 @@
 package org.example;
 
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,5 +33,5 @@ public interface Command {
         }
         return mapOfIndexes;
     }
-    public void evalCommand(String [] Paragraphs, String [] resultParagraphs);
+    public void evalCommand(String [] Paragraphs, XWPFDocument template);
 }

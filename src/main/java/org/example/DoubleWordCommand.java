@@ -1,5 +1,7 @@
 package org.example;
 
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public abstract class DoubleWordCommand implements Command{
         parameter=additionalParameter.First;
     }
 
-    public abstract void evalCommand(String [] Paragraphs, String [] resultParagraphs) ;
+    public abstract void evalCommand(String [] Paragraphs, XWPFDocument template) ;
     public void setFirstOrList(List<Wort> orListFirstWord) {
         this.orListFirstWord = orListFirstWord;
     }

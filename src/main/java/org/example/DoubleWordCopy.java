@@ -1,5 +1,7 @@
 package org.example;
 
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+
 import java.util.List;
 
 public class DoubleWordCopy extends DoubleWordCommand{
@@ -13,7 +15,7 @@ public class DoubleWordCopy extends DoubleWordCommand{
     }
 
     @Override
-    public void evalCommand(String [] Paragraphs, String [] resultParagraphs) {
+    public void evalCommand(String [] Paragraphs, XWPFDocument template) {
 
     }
 }

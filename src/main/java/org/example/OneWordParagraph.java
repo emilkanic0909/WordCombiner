@@ -1,5 +1,7 @@
 package org.example;
 
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+
 import java.util.List;
 
 public class OneWordParagraph extends OneWordCommand{
@@ -14,7 +16,7 @@ public class OneWordParagraph extends OneWordCommand{
 
 
     @Override
-    public void evalCommand(String [] Paragraphs, String [] resultParagraphs) {
+    public void evalCommand(String [] Paragraphs, XWPFDocument template) {
 
     }
 }

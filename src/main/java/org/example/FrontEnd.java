@@ -119,8 +119,9 @@ public class FrontEnd extends JFrame {
                     int responce= fileChooser.showSaveDialog(null);
                     if(responce==JFileChooser.APPROVE_OPTION){
                         File output=new File(fileChooser.getSelectedFile().getAbsoluteFile().toURI()+"docx");
-                        BackEnd backEnd=new BackEnd(kassa,apell,template,konf,output);
+                        BackEnd backEnd=null;
                         try {
+                            backEnd=new BackEnd(kassa,apell,template,konf,output);
                             backEnd.start();
                         } catch (IOException ex) {
                             JOptionPane.showMessageDialog(null,"Один из файлов выбран неверно","output",JOptionPane.PLAIN_MESSAGE);
