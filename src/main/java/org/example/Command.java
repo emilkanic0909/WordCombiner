@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface Command {
     public default Map<Integer, List<Integer>> findWort(Wort wort, String [] paragraphs){
-        //return a indedexes of Wort in each Paragraph
+        //return a indedexes of Wort in each Paragraph OR sentence
         Map<Integer,List<Integer>> mapOfIndexes=new HashMap<>();
         String word;
         String newParagraphs[];
@@ -27,7 +27,8 @@ public interface Command {
             startindex++;
             if(curindex!=-1)mapOfIndexes.put(i,new ArrayList<>());
             while(curindex!=-1){
-                mapOfIndexes.get(i).add(curindex);
+               if(wort.isIncluded()) mapOfIndexes.get(i).add(curindex);
+               else mapOfIndexes.get(i).get(curindex+word.length()+1);
                 curindex=newParagraphs[i].indexOf(word,startindex);
             }
         }
